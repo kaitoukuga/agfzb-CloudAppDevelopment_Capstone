@@ -10,9 +10,45 @@
     <body>
 
     <!--Add a nav bar here -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                  <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Car Review</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li>
+                     <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                     <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                             <input type="text" class="form-control" placeholder="Username" name="username" >
+                             <input type="password" class="form-control" placeholder="Password" name="psw" >
+                             <button class="btn btn-primary" type="submit">Login</button>
+                             <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                        </div>
+                     </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 
     <!-- Add reviews as cards -->
-
+    <div class="container-fluid">
+        <h2>{{ dealer.name }}</h2>
+        <div class="card-columns-vertical">
+            {% for review in dealer.review_set.all %}
+                <div class="card mt-1">
+                    <div class="card-header"><h5>Review {{review.order|add:1}}: {{review.title}}</h5></div>
+                    <div class="card-body">{{review.content}}</div>
+                </div>
+            {% endfor %}
+        </div>
     </body>
 
 </html>
