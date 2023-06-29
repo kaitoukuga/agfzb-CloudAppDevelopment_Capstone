@@ -10,12 +10,13 @@
     <body>
 
     <!--Add a nav bar here -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-info">
         <div class="container-fluid">
             <div class="navbar-header">
-                  <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Car Review</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Best Car</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
             </div>
-            <ul class="nav navbar-nav navbar-right">
+            <!-- <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li>
                      <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
@@ -34,13 +35,13 @@
                      </form>
                 </li>
                 {% endif %}
-            </ul>
+            </ul> -->
         </div>
     </nav>
 
     <!-- Add reviews as cards -->
-    <div class="container-fluid">
-        <h2>{{ dealer.name }}</h2>
+    <!-- <div class="container-fluid">
+        <h2>Reviews for {{ dealer.name }}</h2>
         <div class="card-columns-vertical">
             {% for review in dealer.review_set.all %}
                 <div class="card mt-1">
@@ -48,7 +49,15 @@
                     <div class="card-body">{{review.content}}</div>
                 </div>
             {% endfor %}
-        </div>
+        </div> -->
+
+        <footer class="navbar navbar-light bg-info" style="position:fixed; bottom:0; width:100%">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                </div>
+            </div>
+        </footer>
     </body>
 
 </html>
