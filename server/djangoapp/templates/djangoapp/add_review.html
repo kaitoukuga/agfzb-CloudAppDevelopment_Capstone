@@ -12,13 +12,13 @@
 </head>
     <body>
     <!-- Add Navbar -->
-    <nav class="navbar navbar-light bg-info">
+    <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Best Car</a>
                 <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
             </div>
-            <!-- <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li>
                      <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
@@ -31,19 +31,19 @@
                         <div class="input-group">
                              <input type="text" class="form-control" placeholder="Username" name="username" >
                              <input type="password" class="form-control" placeholder="Password" name="psw" >
-                             <button class="btn btn-primary" type="submit">Login</button>
+                             <button class="btn btn-primary" type="submit" style="margin-left:5px">Login</button>
                              <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
                         </div>
                      </form>
                 </li>
                 {% endif %}
-            </ul> -->
+            </ul>
         </div>
     </nav>
 
     <!--Add review form here -->
 
-    <footer class="navbar navbar-light bg-info" style="position:fixed; bottom:0; width:100%">
+    <footer class="navbar navbar-light bg-light" style="position:fixed; bottom:0; width:100%">
         <div class="container-fluid">
             <div class="navbar-header">
               <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
