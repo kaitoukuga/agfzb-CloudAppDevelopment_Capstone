@@ -70,10 +70,16 @@ def get_dealers_from_cf(url, **kwargs):
             dealer_doc = dealer["doc"]
             # print(dealer_doc)
             # Create a CarDealer object with values in `doc` object
-            dealer_obj = CarDealer(address=dealer_doc["address"], city=dealer_doc["city"],
-                                   id=dealer_doc["id"], lat=dealer_doc["lat"], long=dealer_doc["long"], full_name=dealer_doc["full_name"],
-                                
-                                   st=dealer_doc["st"], zip=dealer_doc["zip"])
+            dealer_obj = CarDealer(
+                address=dealer_doc["address"], 
+                city=dealer_doc["city"],
+                id=dealer_doc["id"], 
+                lat=dealer_doc["lat"], 
+                long=dealer_doc["long"], 
+                full_name=dealer_doc["full_name"], 
+                short_name=dealer_doc["short_name"],                                
+                st=dealer_doc["st"], 
+                zip=dealer_doc["zip"])
             results.append(dealer_obj)
 
     return results
@@ -83,16 +89,19 @@ def get_dealer_by_id_from_cf(url, id):
     json_result = get_request(url, id=id)
     print('json_result from line 54', json_result)
 
-    dealer_obj = None  # Initialize dealer_obj variable
-
     if json_result:
         dealers = json_result
-
-        if len(dealers) > 0:
-            dealer_doc = dealers[0]
-            dealer_obj = CarDealer(address=dealer_doc["address"], city=dealer_doc["city"],
-                                   id=dealer_doc["id"], lat=dealer_doc["lat"], long=dealer_doc["long"],
-                                   full_name=dealer_doc["full_name"], st=dealer_doc["st"], zip=dealer_doc["zip"])
+        dealer_doc = dealers[0]
+        dealer_obj = CarDealer(
+            address=dealer_doc["address"], 
+            city=dealer_doc["city"],
+            id=dealer_doc["id"], 
+            lat=dealer_doc["lat"], 
+            long=dealer_doc["long"],
+            full_name=dealer_doc["full_name"], 
+            st=dealer_doc["st"], 
+            zip=dealer_doc["zip"],
+            short_name=dealer_doc["short_name"])
 
     return dealer_obj
 
@@ -139,7 +148,9 @@ def analyze_review_sentiments(dealer_review):
     natural_language_understanding = NaturalLanguageUnderstandingV1(
         version='2021-08-01', authenticator=authenticator)
     natural_language_understanding.set_service_url(NLU_URL)
-    response = natural_language_understanding.analyze(text=dealer_review, features=Features(
+    response = natural_language_understanding.analyze(
+        text=dealer_review, 
+        features=Features(
         sentiment=SentimentOptions(targets=[dealer_review]))).get_result()
     label = json.dumps(response, indent=2)
     label = response['sentiment']['document']['label']
