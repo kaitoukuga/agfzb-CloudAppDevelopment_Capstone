@@ -45,36 +45,50 @@
     </nav>
 
     <!--Add a dealer table here -->
-    <!-- {% if dealer_list %}
-    <div class="container"> 
-        <div class="card-deck"> 
-            {% for dealer in dealer_list %}
-            <div class="card" style="width: 36rem;">
-                <img class="card-img-left" src="{{MEDIA_URL}}/{{ dealer.image }}" width="240px" height="240px"
-                           alt="Dealer image"> 
-                <div class="card-body bg-light"> 
-                    <h5 class="card-title">{{ dealer.name }}, <span class="text-success"> 
-                              {{ dealer.total_review }} review</span></h5>
-                    <p class="card-text">{{ dealer.description }}</p> 
-                    <form action="{% url 'djangoapp:review' dealer.id %}" method="post">
-                        {% csrf_token %}
-                        <input class="btn btn-primary" type="submit"
-                               value="Review"> 
-                    </form>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% else %}
-    <p>No dealer are available.</p>
-    {% endif %} -->
-    <footer class="navbar navbar-light bg-light" style="position:fixed; bottom:0; width:100%">
+    <main role="main" class="container pt-3">
+        <h1 class="mt-2 mb-4">Dealerships</h1>
+        <table class="table" id="table" data-filter-control="true">
+            <thead>
+                <tr>
+                    <th data-field="id">ID</th>
+                    <th data-field="full_name">Dealership Name</th>
+                    <th data-field="city">City</th>
+                    <th data-field="address">Address</th>
+                    <th data-field="zip">ZIP Code</th>
+                    <th data-field="state" data-filter-control="select">State</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dealer in dealership_list %}
+                    <tr>
+                        <td>{{dealer.id}}</td>
+                        <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+                        <td>{{dealer.city}}</td>
+                        <td>{{dealer.address}}</td>
+                        <td>{{dealer.zip}}</td>
+                        <td>{{dealer.st}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <footer class="navbar navbar-light bg-light" style="margin-top:15px; bottom:0; width:100%">
         <div class="container-fluid">
             <div class="navbar-header">
               <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
             </div>
+            <div class="text-center p-3">
+                © 2022 <a class="text-dark" href="{% url 'djangoapp:index' %}">Dealership Review</a>
+            </div>
         </div>
     </footer>
     </body>
+
+    <script>
+        $(function() {
+          $('#table').bootstrapTable()
+        })
+    </script>
+      
 </html>
